@@ -8,7 +8,7 @@ Copyright: 2014 Pierre Radermecker
 Author: Pierre Radermecker
 Maintainer: PierreR@pi3r.com
 Bug-Reports: https://github.com/PierreR/zguide
-Tested-With: GHC == 7.6.3
+Tested-With: GHC == 8.0.1
 Synopsis: ZMQ haskell example
 Description: 
 Category: 

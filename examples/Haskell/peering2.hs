@@ -21,10 +21,10 @@ import           System.Random
 
 import           System.ZMQ4.Monadic
 
-workerNum :: Int
+workerNum :: Num t => t
 workerNum = 3
 
-clientNum :: Int
+clientNum :: Num t => t
 clientNum = 10
 
 -- | The client task does a request-reply dialog using a standard
@@ -228,8 +228,8 @@ main = do
             void getLine
 
         -- Start workers and clients
-        forM_ [1..workerNum] $ async . workerTask self
-        forM_ [1..clientNum] $ async . clientTask self
+        let workerNums = [1..workerNum] :: (Num t, Enum t) => [t] in forM_ workerNums $ async . workerTask self
+        let clientNums = [1..clientNum] :: (Num t, Enum t) => [t] in forM_ clientNums $ async . clientTask self
 
         -- Request reply flow
         clientWorkerPoll

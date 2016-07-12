@@ -22,10 +22,10 @@ import           System.Random
 
 import           System.ZMQ4.Monadic
 
-workerNum :: Int
+workerNum :: Num t => t
 workerNum = 5
 
-clientNum :: Int
+clientNum :: Num t => t
 clientNum = 10
 
 -- | This is the client task. It issues a burst of requests and then
@@ -308,8 +308,8 @@ main = do
         bind mon (connectString self "monitor")
 
         -- Start workers and clients
-        forM_ [1..workerNum] $ async . workerTask self
-        forM_ [1..clientNum] $ async . clientTask self
+        let workerNums = [1..workerNum] :: (Num t, Enum t) => [t] in forM_ workerNums $ async . workerTask self
+        let clientNums = [1..clientNum] :: (Num t, Enum t) => [t] in forM_ clientNums $ async . clientTask self
 
         -- Request reply flow
         clientWorkerPoll

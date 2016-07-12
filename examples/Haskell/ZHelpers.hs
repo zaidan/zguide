@@ -57,7 +57,7 @@ prettyPrint = concatMap (`showHex` "") . B.unpack
 -- Returns the current UNIX time in milliseconds
 currentTime_ms :: IO Integer
 currentTime_ms = do
-    time_secs <- (read <$> formatTime defaultTimeLocale "%s" <$> getCurrentTime) :: IO Integer
+    time_secs <- (read <$> formatTime Data.Time.defaultTimeLocale "%s" <$> getCurrentTime) :: IO Integer
     return $ time_secs * 1000
 
 nextHeartbeatTime_ms :: Integer -> IO Integer
